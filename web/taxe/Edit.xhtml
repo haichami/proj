@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaxeEditDlg" widgetVar="TaxeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTaxeTitle}">
+            <h:form id="TaxeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taxeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{taxeController.selected.user}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{taxeController.selected.id}" title="#{bundle.EditTaxeTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_gain}" for="gain" />
+                        <p:inputText id="gain" value="#{taxeController.selected.gain}" title="#{bundle.EditTaxeTitle_gain}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_local}" for="local" />
+                        <p:selectOneMenu id="local" value="#{taxeController.selected.local}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{localController.itemsAvailableSelectOne}"
+                                           var="localItem"
+                                           itemValue="#{localItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_montantTaxeBase}" for="montantTaxeBase" />
+                        <p:inputText id="montantTaxeBase" value="#{taxeController.selected.montantTaxeBase}" title="#{bundle.EditTaxeTitle_montantTaxeBase}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_montantTaxePremierMois}" for="montantTaxePremierMois" />
+                        <p:inputText id="montantTaxePremierMois" value="#{taxeController.selected.montantTaxePremierMois}" title="#{bundle.EditTaxeTitle_montantTaxePremierMois}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_montantTaxeAutreMois}" for="montantTaxeAutreMois" />
+                        <p:inputText id="montantTaxeAutreMois" value="#{taxeController.selected.montantTaxeAutreMois}" title="#{bundle.EditTaxeTitle_montantTaxeAutreMois}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_montantTaxeTotal}" for="montantTaxeTotal" />
+                        <p:inputText id="montantTaxeTotal" value="#{taxeController.selected.montantTaxeTotal}" title="#{bundle.EditTaxeTitle_montantTaxeTotal}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_datePresentation}" for="datePresentation" />
+                        <p:calendar id="datePresentation" pattern="MM/dd/yyyy" value="#{taxeController.selected.datePresentation}" title="#{bundle.EditTaxeTitle_datePresentation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_trimestre}" for="trimestre" />
+                        <p:inputText id="trimestre" value="#{taxeController.selected.trimestre}" title="#{bundle.EditTaxeTitle_trimestre}" />
+                        <p:outputLabel value="#{bundle.EditTaxeLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{taxeController.selected.annee}" title="#{bundle.EditTaxeTitle_annee}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taxeController.update}" value="#{bundle.Save}" update="display,:TaxeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TaxeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaxeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

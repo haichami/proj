@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaxeViewDlg" widgetVar="TaxeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTaxeTitle}">
+            <h:form id="TaxeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taxeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTaxeLabel_user}"/>
+                        <h:outputText value="#{taxeController.selected.user}" title="#{bundle.ViewTaxeTitle_user}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_id}"/>
+                        <h:outputText value="#{taxeController.selected.id}" title="#{bundle.ViewTaxeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_gain}"/>
+                        <h:outputText value="#{taxeController.selected.gain}" title="#{bundle.ViewTaxeTitle_gain}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_local}"/>
+                        <h:outputText value="#{taxeController.selected.local}" title="#{bundle.ViewTaxeTitle_local}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_montantTaxeBase}"/>
+                        <h:outputText value="#{taxeController.selected.montantTaxeBase}" title="#{bundle.ViewTaxeTitle_montantTaxeBase}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_montantTaxePremierMois}"/>
+                        <h:outputText value="#{taxeController.selected.montantTaxePremierMois}" title="#{bundle.ViewTaxeTitle_montantTaxePremierMois}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_montantTaxeAutreMois}"/>
+                        <h:outputText value="#{taxeController.selected.montantTaxeAutreMois}" title="#{bundle.ViewTaxeTitle_montantTaxeAutreMois}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_montantTaxeTotal}"/>
+                        <h:outputText value="#{taxeController.selected.montantTaxeTotal}" title="#{bundle.ViewTaxeTitle_montantTaxeTotal}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_datePresentation}"/>
+                        <h:outputText value="#{taxeController.selected.datePresentation}" title="#{bundle.ViewTaxeTitle_datePresentation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_trimestre}"/>
+                        <h:outputText value="#{taxeController.selected.trimestre}" title="#{bundle.ViewTaxeTitle_trimestre}"/>
+                        <h:outputText value="#{bundle.ViewTaxeLabel_annee}"/>
+                        <h:outputText value="#{taxeController.selected.annee}" title="#{bundle.ViewTaxeTitle_annee}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TaxeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
