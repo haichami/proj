@@ -1,6 +1,8 @@
 package controller;
 
+import bean.Quartier;
 import bean.Rue;
+import bean.Secteur;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.RueFacade;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.QuartierFacade;
 
 @Named("rueController")
 @SessionScoped
@@ -27,13 +30,53 @@ public class RueController implements Serializable {
     private service.RueFacade ejbFacade;
     private List<Rue> items = null;
     private Rue selected;
+    @EJB
+    private service.QuartierFacade quartierFacade;
+    private List<Quartier> quartiers;
     
     
     
-//    public void detail(){
-//        return ejbFacade.findByRue(nom);
-//    }
+    public void findByQuartier(Quartier quartier){
+        items=ejbFacade.findByQuartier(quartier);
+    }
+    public void findBySecteur(Secteur secteur){
+        quartiers = quartierFacade.findBySecteur(secteur);
+    }
+    
+    
+    
+    
+    public QuartierFacade getQuartierFacade() {
+        return quartierFacade;
+    }
 
+    public void setQuartierFacade(QuartierFacade quartierFacade) {
+        this.quartierFacade = quartierFacade;
+    }
+
+    public List<Quartier> getQuartiers() {
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
+    }
+    
+    
+    
+    
+
+    public RueFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(RueFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    
+
+    
     public RueController() {
     }
 

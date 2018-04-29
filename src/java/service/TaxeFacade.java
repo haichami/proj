@@ -5,8 +5,10 @@
  */
 package service;
 
+import bean.Local;
 import bean.Taxe;
 import bean.TauxTaxeBoison;
+import controller.util.SearchUtil;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,6 +35,12 @@ public class TaxeFacade extends AbstractFacade<Taxe> {
     public TaxeFacade() {
         super(Taxe.class);
     }
+    
+    public Taxe findByLocal(Local local){
+        String query="SELECT t FROM Taxe t WHERE 1=1";
+        query+=SearchUtil.addConstraint("t", "Local.id", "=", local.getNom());
+        return (Taxe) em.createQuery(query).getSingleResult();
+    }
 
     public int save(Taxe taxe) {
         TauxTaxeBoison tauxTaxeBoison = tauxTaxeBoisonFacade.findByCategorie(taxe.getLocal().getCategorie());
@@ -42,7 +50,8 @@ public class TaxeFacade extends AbstractFacade<Taxe> {
             calculerMontantBase(taxe, tauxTaxeBoison);
             calculerMontantPremierMois(taxe, tauxTaxeBoison);
             calculerMontantAutreMois(taxe, tauxTaxeBoison);
-            CalculeTotal(taxe);
+            calculeTotal(taxe);
+            create(taxe);
             return 1;
         }
     }
@@ -52,17 +61,17 @@ public class TaxeFacade extends AbstractFacade<Taxe> {
         taxe.setMontantTaxeBase(montantBase);
     }
 
-    public void calculerMontantPremierMois(Taxe taxe, TauxTaxeBoison tauxTaxeBoison) {
+    private void calculerMontantPremierMois(Taxe taxe, TauxTaxeBoison tauxTaxeBoison) {
         double montantPremierMois = taxe.getGain() * tauxTaxeBoison.getTauxRetardPremierMois() / 100;
         taxe.setMontantTaxePremierMois(montantPremierMois);
     }
 
-    public void calculerMontantAutreMois(Taxe taxe, TauxTaxeBoison tauxTaxeBoison) {
+    private void calculerMontantAutreMois(Taxe taxe, TauxTaxeBoison tauxTaxeBoison) {
         double montantAutreMois = taxe.getGain() * tauxTaxeBoison.getTauxRetardAutreMois() / 100;
         taxe.setMontantTaxeAutreMois(montantAutreMois);
     }
 
-    public void CalculeTotal(Taxe taxe) {
+    private void calculeTotal(Taxe taxe) {
         double total = taxe.getMontantTaxeBase()+taxe.getMontantTaxePremierMois()+taxe.getMontantTaxeAutreMois();
         taxe.setMontantTaxeTotal(total);
         

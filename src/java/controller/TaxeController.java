@@ -1,5 +1,6 @@
 package controller;
 
+import bean.Local;
 import bean.Taxe;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
@@ -28,10 +29,22 @@ public class TaxeController implements Serializable {
     private List<Taxe> items = null;
     private Taxe selected;
 
+    public void save() {
+        ejbFacade.save(getSelected());
+    }
+
+    public void findByLocal(Local local) {
+        ejbFacade.findByLocal(local);
+
+    }
+
     public TaxeController() {
     }
 
     public Taxe getSelected() {
+        if (selected == null) {
+            selected = new Taxe();
+        }
         return selected;
     }
 
@@ -85,7 +98,9 @@ public class TaxeController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
+                    getFacade().save(selected);
+                } else if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

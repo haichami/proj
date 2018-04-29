@@ -61,7 +61,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalTitle_rue}"/>
                             </f:facet>
-                            <h:outputText value="#{localController.findByRue()}"/>
+                            <h:outputText value="#{item.rue.nom}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localController.prepareCreate}" update=":LocalCreateForm" oncomplete="PF('LocalCreateDialog').show()"/>

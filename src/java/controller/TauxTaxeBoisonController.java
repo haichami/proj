@@ -1,5 +1,6 @@
 package controller;
 
+import bean.Categorie;
 import bean.TauxTaxeBoison;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
@@ -28,6 +29,12 @@ public class TauxTaxeBoisonController implements Serializable {
     private List<TauxTaxeBoison> items = null;
     private TauxTaxeBoison selected;
 
+    
+    public void findByCategorie(Categorie categorie){
+        ejbFacade.findByCategorie(categorie);
+    }
+    
+    
     public TauxTaxeBoisonController() {
     }
 

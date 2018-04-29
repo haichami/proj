@@ -25,7 +25,7 @@ public class QuartierFacade extends AbstractFacade<Quartier> {
     private EntityManager em;
 
     
-      public List<Rue> findBySecteur(Secteur secteur){
+      public List<Quartier> findBySecteur(Secteur secteur){
      String query = "SELECT q FROM Quartier q WHERE 1=1";
         query+=SearchUtil.addConstraint("q", "secteur.id", "=", secteur.getId());
         return em.createQuery(query).getResultList();

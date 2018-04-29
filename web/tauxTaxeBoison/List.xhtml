@@ -29,16 +29,18 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTauxTaxeBoisonTitle_categorie}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.categorie}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTauxTaxeBoisonTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTauxTaxeBoisonTitle_categorie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categorie.nom}"/>
+                        </p:column>
+                        
                         
                         <p:column>
                             <f:facet name="header">

@@ -1,7 +1,9 @@
 package controller;
 
 import bean.Local;
+import static bean.Local_.redevable;
 import bean.Quartier;
+import bean.Redevable;
 import bean.Rue;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
@@ -32,7 +34,9 @@ public class LocalController implements Serializable {
     private Local selected;
     
 
-    
+    public void findByRedevable(Redevable redevable){
+        items=ejbFacade.findByRedevable(redevable);
+    }
     
     
 
