@@ -43,5 +43,6 @@ public class RueFacade extends AbstractFacade<Rue> {
         return em.createQuery(query).getResultList();
     }
     
+    
    
 }

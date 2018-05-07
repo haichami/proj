@@ -1,11 +1,14 @@
 package controller;
 
+import bean.Quartier;
+import bean.Rue;
 import bean.Secteur;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.SecteurFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,9 +28,14 @@ public class SecteurController implements Serializable {
 
     @EJB
     private service.SecteurFacade ejbFacade;
+    @EJB
+    private service.QuartierFacade quartierFacade;
     private List<Secteur> items = null;
-    private Secteur selected;
 
+    private Secteur selected;
+    
+
+    
     public SecteurController() {
     }
 
@@ -160,6 +168,14 @@ public class SecteurController implements Serializable {
             }
         }
 
+    }
+
+    public SecteurFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(SecteurFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
     }
 
 }

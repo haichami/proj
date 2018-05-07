@@ -5,11 +5,14 @@ import static bean.Local_.redevable;
 import bean.Quartier;
 import bean.Redevable;
 import bean.Rue;
+import static bean.Rue_.quartier;
+import bean.Secteur;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.LocalFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.QuartierFacade;
 import service.RueFacade;
 
 @Named("localController")
@@ -30,15 +34,73 @@ public class LocalController implements Serializable {
 
     @EJB
     private service.LocalFacade ejbFacade;
+    @EJB
+    private service.QuartierFacade quartierFacade;
+    @EJB
+    private service.RueFacade rueFacade;
     private List<Local> items = null;
     private Local selected;
-    
+    private Rue rue;
+    private Quartier quartier;
+    private Secteur secteur;
 
-    public void findByRedevable(Redevable redevable){
-        items=ejbFacade.findByRedevable(redevable);
+    private List<Quartier> quartiers = new ArrayList();
+    private List<Rue> rues = new ArrayList();
+
+    public void findQuartiers() {
+        quartiers = quartierFacade.findBySecteur(secteur);
     }
-    
-    
+    public void findRue() {
+        rues=rueFacade.findByQuartier(quartier);
+    }
+
+    public void findByCriteria() {
+        items = ejbFacade.findByCriteria(rue, quartier, secteur);
+    }
+
+    public void findByRedevable(Redevable redevable) {
+        items = ejbFacade.findByRedevable(redevable);
+    }
+
+    public List<Quartier> getQuartiers() {
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
+    }
+
+    public List<Rue> getRues() {
+        return rues;
+    }
+
+    public void setRues(List<Rue> rues) {
+        this.rues = rues;
+    }
+
+    public Rue getRue() {
+        return rue;
+    }
+
+    public void setRue(Rue rue) {
+        this.rue = rue;
+    }
+
+    public Quartier getQuartier() {
+        return quartier;
+    }
+
+    public void setQuartier(Quartier quartier) {
+        this.quartier = quartier;
+    }
+
+    public Secteur getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(Secteur secteur) {
+        this.secteur = secteur;
+    }
 
     public LocalFacade getEjbFacade() {
         return ejbFacade;
@@ -48,11 +110,6 @@ public class LocalController implements Serializable {
         this.ejbFacade = ejbFacade;
     }
 
-    
-    
-
-    
-    
     public LocalController() {
     }
 

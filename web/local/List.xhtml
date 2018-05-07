@@ -14,6 +14,45 @@
         </ui:define>
 
         <ui:define name="body">
+
+
+            <h:form id="LocalListFormSearch">
+
+
+
+                <p:outputLabel value="#{bundle.CreateQuartierLabel_secteur}" for="secteur" />
+                <p:selectOneMenu id="secteur" value="#{localController.secteur}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                    <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"
+                                   var="secteurItem"
+                                   itemValue="#{secteurItem}" itemLabel="#{secteurItem.nom}"/>
+                    <p:ajax process="secteur" listener="#{localController.findQuartiers()}" update="quartier"></p:ajax>
+                </p:selectOneMenu>
+                
+                
+                <p:outputLabel value="#{bundle.CreateRueLabel_quartier}" for="quartier" />
+                <p:selectOneMenu id="quartier" value="#{localController.quartier}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                    <f:selectItems value="#{localController.quartiers}"
+                                   var="quartierItem"
+                                   itemValue="#{quartierItem}" itemLabel="#{quartierItem.nom}"/>
+                    <p:ajax process="quartier" listener="#{localController.findRue()}" update="rue"></p:ajax>
+                </p:selectOneMenu>
+
+
+                <p:outputLabel value="#{bundle.CreateLocalLabel_rue}" for="rue" />
+                <p:selectOneMenu id="rue" value="#{localController.rue}" >
+                    <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                    <f:selectItems value="#{localController.rues}"
+                                   var="rueItem"
+                                   itemValue="#{rueItem}" itemLabel="#{rueItem.nom}"/>
+                </p:selectOneMenu>
+
+                <!--<p:commandButton actionListener="#{localController.findByCriteria()}" value="detail" update=":LocalListForm:datalist"></p:commandButton>
+-->
+            </h:form>
+
+
             <h:form id="LocalListForm">
                 <p:panel header="#{bundle.ListLocalTitle}">
                     <p:dataTable id="datalist" value="#{localController.items}" var="item"
@@ -61,8 +100,10 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLocalTitle_rue}"/>
                             </f:facet>
-                            <h:outputText value="#{item.rue.nom}"/>
+                            <h:outputText value="#{item.rue.nom}"  /><br />
+
                         </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{localController.prepareCreate}" update=":LocalCreateForm" oncomplete="PF('LocalCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LocalViewForm" oncomplete="PF('LocalViewDialog').show()" disabled="#{empty localController.selected}"/>
@@ -76,7 +117,13 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+
+
+
+
+
         </ui:define>
     </ui:composition>
+
 
 </html>

@@ -9,6 +9,9 @@ import bean.Local;
 import bean.Taxe;
 import bean.TauxTaxeBoison;
 import controller.util.SearchUtil;
+import java.rmi.server.Operation;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -76,5 +79,6 @@ public class TaxeFacade extends AbstractFacade<Taxe> {
         taxe.setMontantTaxeTotal(total);
         
     }
-
+    
+    
 }
